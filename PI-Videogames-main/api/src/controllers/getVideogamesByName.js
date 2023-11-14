@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Videogame } = require('../db');
 const { APIKey } = process.env;
+const { videogamesAPI } = require('../utils/index');
 
 const videogameName = async (name) => {
     const videogamesDB = await Videogame.findAll({
@@ -10,21 +11,24 @@ const videogameName = async (name) => {
         limit: 15
     });
 
-    const infoAPI = await axios.get(`https://api.rawg.io/api/games?search=${name}?key=${APIKey}`).data.results;
+    const infoAPI = (await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${APIKey}`)).data.results;
     
-    const videogamesFiltered = videogamesAPI.filter((videogame) => videogame.nombre.toLowerCase().includes(name.toLowerCase()));
-    
-    const videogamesAPI = videogameInfo(infoAPI);
+    var infoMapeada = [];
 
-    const infoResults =  [...videogamesFiltered, ...videogamesDB];
-
-    if (infoResults.length === 0) {
-        return {error: "No se encontraron coincidencias"}
+    if (infoAPI.length !=0 ) {
+         infoMapeada = videogamesAPI(infoAPI)
     }
-    return infoResults.slice(0, 15);
+
+      
+        const infoResults =  [...infoMapeada, ...videogamesDB];
+    
+        if (infoResults.length === 0) {
+            return {error: `No se encontraron videojuegos con el nombre ${name}`}
+        }
+        return infoResults.slice(0, 15);
+    
+    
 }
-
-
 
 
 

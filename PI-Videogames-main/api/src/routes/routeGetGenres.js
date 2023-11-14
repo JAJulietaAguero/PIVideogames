@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const getGenres = require('../controllers/getGenres');
+const  { getGenres } = require('../controllers/getGenres');
 
 router.get("/", async(req, res) => {
     try {
-        const newGenre = getGenres();
+        const newGenre = await getGenres();
         res.status(200).json(newGenre);
         
     } catch (error) {

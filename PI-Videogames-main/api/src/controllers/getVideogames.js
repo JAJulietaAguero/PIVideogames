@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Videogame, Generos } = require('../db');
 const { APIKey } = process.env;
+const { videogamesAPI } = require('../utils/index');
 
 
 const allVideogames = async () => {
@@ -9,25 +10,11 @@ const allVideogames = async () => {
             model: Generos
         }
     });
-    const infoAPI= (await axios.get(`https://api.rawg.io/api/games?key=${APIKey}`)).data;
+    const infoAPI = (await axios.get(`https://api.rawg.io/api/games?key=${APIKey}`)).data.results;
 
-    let infoCleaned = infoAPI.data.results.map(videogame => {
-        return {
-            id: videogame.id,
-            nombre: videogame.name,
-            descripcion: videogame.description,
-            plataformas: videogame.platforms.map((elem) => {
-                return elem.platform.name
-            }),
-            imagen: videogame.background_image,
-            lanzamiento: videogame.released,
-            rating: videogame.rating
-        }
-    })
-    
-    const videogamesAPI = infoCleaned(infoAPI);
+   const infoMapeada = videogamesAPI(infoAPI)
 
-    return [...videogamesDB, ...videogamesAPI];
+    return [...videogamesDB, ...infoMapeada];
  }
 
 
