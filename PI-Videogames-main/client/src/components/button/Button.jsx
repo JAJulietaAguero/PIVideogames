@@ -1,8 +1,12 @@
-const Button = () => {
-    return (
-        <button>
+import { Link } from 'react-router-dom';
 
-        </button>
+const Button = ({ path, text }) => {
+    return (
+        <Link to= {path}>
+            <button>
+                {text}
+            </button>
+        </Link>
     )
 }
 

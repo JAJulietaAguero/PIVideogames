@@ -9,7 +9,7 @@ import LandingPage from './components/landingPage/LandingPage';
 const App = () => {
   return (
     <div className="App">
-      <h1>Henry Videgames</h1>
+      <h1>Henry Videogames</h1>
      <Routes>
      <Route path='/' element={<LandingPage />}/>
       <Route path='/home' element={<Cards />}/>

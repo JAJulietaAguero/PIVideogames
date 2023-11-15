@@ -14,10 +14,7 @@ const videogamesAPI = (videogames) => {
             lanzamiento: videogame.released,
             rating: videogame.rating,
             generos: videogame.genres.map((elem) => {
-                return {
-                    id: elem.id,
-                    nombre: elem.name
-                }
+                return elem.name
             })
             
         }
@@ -34,10 +31,7 @@ const videogamesAPI = (videogames) => {
         lanzamiento: videogames.released,
         rating: videogames.rating,
         generos: videogames.genres.map((elem) => {
-            return {
-                id: elem.id,
-                nombre: elem.name
-            }
+            return elem.name
         })
     }
     return videogameDB
