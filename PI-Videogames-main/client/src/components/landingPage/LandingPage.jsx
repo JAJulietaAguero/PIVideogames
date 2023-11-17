@@ -1,7 +1,10 @@
+import Button from "../button/Button";
+
 const LandingPage = () => {
     return (
         <div>
-
+            <h1>VIDEOGAMES</h1>
+            <Button path='home' text='Comenzar'/>
         </div>
     )
 }
